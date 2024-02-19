@@ -11,6 +11,8 @@ param apimName            string
 @minLength(1)
 param apimSubnetId string
 
+param apimPublicIpId string
+
 @description('The email address of the publisher of the APIM resource.')
 @minLength(1)
 param publisherEmail string = 'apim@contoso.com'
@@ -36,7 +38,7 @@ param appInsightsInstrumentationKey string
  * Resources
 */
 
-resource apimName_resource 'Microsoft.ApiManagement/service@2020-12-01' = {
+resource apimName_resource 'Microsoft.ApiManagement/service@2023-05-01-preview' = {
   name: apimName
   location: location
   sku:{
@@ -47,6 +49,7 @@ resource apimName_resource 'Microsoft.ApiManagement/service@2020-12-01' = {
     virtualNetworkType: 'Internal'
     publisherEmail: publisherEmail
     publisherName: publisherName
+    publicIpAddressId: apimPublicIpId
     virtualNetworkConfiguration: {
       subnetResourceId: apimSubnetId
     }
